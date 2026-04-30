@@ -1,0 +1,6 @@
+{
+  "name": "GuardAI: Scam Radar",
+  "description": "AI-powered scam detection for messages and voice notes. Protect yourself from deepfakes and fraudulent listings.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": []
+}

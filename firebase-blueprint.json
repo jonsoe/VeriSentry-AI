@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Basic user information for authentication and profile management.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ScamReport": {
+      "title": "Scam Analysis Report",
+      "description": "A detailed report of a scam analysis performed by a user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "content": { "type": "string", "description": "The text content or a reference to the audio snippet." },
+        "contentType": { "type": "string", "enum": ["text", "audio"] },
+        "riskLevel": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+        "score": { "type": "number" },
+        "summary": { "type": "string" },
+        "reasons": { "type": "array", "items": { "type": "string" } },
+        "tips": { "type": "array", "items": { "type": "string" } },
+        "isDeepfakeSuspected": { "type": "boolean" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "riskLevel", "score", "summary", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Storage for user profiles."
+    },
+    "/reports/{reportId}": {
+      "schema": "ScamReport",
+      "description": "Storage for individual scam analysis logs."
+    }
+  }
+}
