@@ -1,0 +1,23 @@
+steps:
+  # Step 1: Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/verisentry-app', '.']
+
+  # Step 2: Push the image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/verisentry-app']
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'verisentry-service'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/verisentry-app'
+      - '--region'
+      - 'us-central1' 
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
